@@ -12,6 +12,9 @@ const AboutPage = () => {
                 allMarkdownRemark {
                     edges {
                         node {
+                        fields {
+                         slug
+                        }
                         frontmatter {
                             title
                             date(locale: "pt-br", formatString: "DD [de] MMM [de] YYYY")
@@ -35,11 +38,12 @@ const postList = allMarkdownRemark.edges
             {postList.map(({
                 node: { 
                     frontmatter: {background, category, date, description, title},
-                    timeToRead
+                    timeToRead,
+                    fields: {slug},
                     },
                     }) => (
                         <PostItem
-                            slug="/about/"
+                            slug={slug}
                             background={background}
                             category={category}
                             date={date}
