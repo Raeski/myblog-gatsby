@@ -49,7 +49,7 @@ exports.createPages = ({graphql, actions }) => {
   `).then(result => {
     const posts = result.data.allMarkdownRemark.edges
 
-    posts.forEach(({nide}) => {
+    posts.forEach(({node}) => {
       createPage({
         path:node.fields.slug,
         component: path.resolve('./src/templates/blog-post.js'),
@@ -68,7 +68,9 @@ exports.createPages = ({graphql, actions }) => {
         component: path.resolve('./src/templates/blog-list.js'),
         context: {
           limit: postsPerPage,
-          skip: index * postsPerPage
+          skip: index * postsPerPage,
+          numPages,
+          currentPage: index + 1
         }
       })
     })
